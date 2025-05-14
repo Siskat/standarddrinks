@@ -28,6 +28,8 @@ class App extends Component {
 
   calculate() {
     let sd = this.state.values.amount/1000*this.state.values.percent*0.789;
+    const parsed = Number(sd);
+    this.setState({ standard: typeof parsed === "number" && !isNaN(parsed) ? parsed : "" });
     this.setState({standard:sd});
   }
 
@@ -44,7 +46,7 @@ class App extends Component {
             <label for="percent">Percentage of Alcohol</label><br/>
             <input class="calc" id="percent" name="percent" placeholder="eg. 50 for 50%" value={this.state.values["percent"]}  onChange={this.handleChange.bind(this)}/>
           </div>
-          <h2 class="padding">Standard drinks</h2><p>{this.state.standard}</p>
+          <h2 class="padding">Standard drinks</h2>{this.state.standard !== "" && <p>{this.state.standard}</p>}
         </div>
       </div>
     );
